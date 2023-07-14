@@ -2,14 +2,13 @@
 # create_config.tcl \
 
 puts "Create project"
-create_project DrivedCounter_wDFX_tclCreated C:/Users/willi/VivadoProjects/DrivedCounter_wDFX_tclCreated -part xc7z020clg400-1
-set_property board_part_repo_paths {C:/Users/willi/AppData/Roaming/Xilinx/Vivado/2023.1.1/xhub/board_store/xilinx_board_store/XilinxBoardStore/Vivado/2023.1.1/boards/Digilent/arty-z7-20/1.1} [current_project]
-set_property board_part digilentinc.com:arty-z7-20:part0:1.1 [current_project]
+create_project DrivedCounter_wDFX_tclCreated /scratch/williamlyh/DrivedCounter_wDFX_tclCreated -part xcu250-figd2104-2L-e
+set_property board_part xilinx.com:au250:part0:1.3 [current_project]
 
 puts "Import sourse files"
-add_files -norecurse {C:/Users/willi/iCloudDrive/Desktop/Berkeley/SLICE/DFX_tcl/src/top.v C:/Users/willi/iCloudDrive/Desktop/Berkeley/SLICE/DFX_tcl/src/driver.v C:/Users/willi/iCloudDrive/Desktop/Berkeley/SLICE/DFX_tcl/src/clock_counter.v }
+add_files -norecurse {/home/eecs/williamlyh/Documents/DFX_TclScripts/src/top.v /home/eecs/williamlyh/Documents/DFX_TclScripts/src/driver.v /home/eecs/williamlyh/Documents/DFX_TclScripts/src/clock_counter.v }
 import_files -force -norecurse
-import_files -fileset constrs_1 -force -norecurse C:/Users/willi/iCloudDrive/Desktop/Berkeley/SLICE/DFX_tcl/src/driver.xdc
+import_files -fileset constrs_1 -force -norecurse /home/eecs/williamlyh/Documents/DFX_TclScripts/src/driver.xdc
 update_compile_order -fileset sources_1
 
 puts "Enable Dynamic Function Exchange"
@@ -25,7 +24,7 @@ create_reconfig_module -name clock_counter -partition_def [get_partition_defs co
 
 puts "Setup reconfigurable modules and runs"
 create_reconfig_module -name clock_counter_half -partition_def [get_partition_defs counter ] 
-import_files -norecurse C:/Users/willi/iCloudDrive/Desktop/Berkeley/SLICE/DFX_tcl/src/clock_counter_half.v  -of_objects [get_reconfig_modules clock_counter_half]
+import_files -norecurse /home/eecs/williamlyh/Documents/DFX_TclScripts/src/clock_counter_half.v  -of_objects [get_reconfig_modules clock_counter_half]
 create_pr_configuration -name full -partitions [list counter:clock_counter ]
 create_pr_configuration -name half -partitions [list counter:clock_counter_half ]
 set_property PR_CONFIGURATION full [get_runs impl_1]
@@ -44,9 +43,9 @@ wait_on_run child_0_impl_1
 
 puts "generate bitstream"
 open_run impl_1
-write_bitstream -file C:/Users/willi/iCloudDrive/Desktop/Berkeley/SLICE/DFX_tcl/bit/bit_full
+write_bitstream -file /home/eecs/williamlyh/Documents/DFX_TclScripts/bit/bit_full
 open_run child_0_impl_1
-write_bitstream -file C:/Users/willi/iCloudDrive/Desktop/Berkeley/SLICE/DFX_tcl/bit/bit_half_partial -cell counter
+write_bitstream -file /home/eecs/williamlyh/Documents/DFX_TclScripts/bit/bit_half_partial -cell counter
 
 puts "Finished"
 
