@@ -21,10 +21,10 @@ set obj [get_partition_defs counter]
 set_property -name "name" -value "counter" -objects $obj
 set_property -name "use_blackbox_stub" -value "1" -objects $obj
 set_property -name "module_name" -value "clock_counter" -objects $obj
-create_reconfig_module -name clock_counter -partition_def [get_partition_defs counter ]  -define_from clock_counter
 
 puts "Setup reconfigurable modules and runs"
-create_reconfig_module -name clock_counter_half -partition_def [get_partition_defs counter ] 
+create_reconfig_module -name clock_counter -partition_def $obj -define_from clock_counter
+create_reconfig_module -name clock_counter_half -partition_def $obj 
 import_files -norecurse C:/Users/willi/iCloudDrive/Desktop/Berkeley/SLICE/DFX_tcl/src/clock_counter_half.v  -of_objects [get_reconfig_modules clock_counter_half]
 create_pr_configuration -name full -partitions [list counter:clock_counter ]
 create_pr_configuration -name half -partitions [list counter:clock_counter_half ]
