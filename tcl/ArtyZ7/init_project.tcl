@@ -7,9 +7,9 @@ set_property board_part_repo_paths {C:/Users/willi/AppData/Roaming/Xilinx/Vivado
 set_property board_part digilentinc.com:arty-z7-20:part0:1.1 [current_project]
 
 puts "Import sourse files"
-add_files -norecurse {C:/Users/willi/iCloudDrive/Desktop/Berkeley/SLICE/DFX_tcl/src/top.v C:/Users/willi/iCloudDrive/Desktop/Berkeley/SLICE/DFX_tcl/src/driver.v C:/Users/willi/iCloudDrive/Desktop/Berkeley/SLICE/DFX_tcl/src/clock_counter.v }
+add_files -norecurse {C:/Users/willi/iCloudDrive/Desktop/Berkeley/SLICE/DFX_tcl/src/ArtyZ7/top.v C:/Users/willi/iCloudDrive/Desktop/Berkeley/SLICE/DFX_tcl/src/ArtyZ7/driver.v C:/Users/willi/iCloudDrive/Desktop/Berkeley/SLICE/DFX_tcl/src/ArtyZ7/lock_counter.v }
 import_files -force -norecurse
-import_files -fileset constrs_1 -force -norecurse C:/Users/willi/iCloudDrive/Desktop/Berkeley/SLICE/DFX_tcl/src/driver.xdc
+import_files -fileset constrs_1 -force -norecurse C:/Users/willi/iCloudDrive/Desktop/Berkeley/SLICE/DFX_tcl/src/ArtyZ7/driver.xdc
 update_compile_order -fileset sources_1
 
 puts "Enable Dynamic Function Exchange"
@@ -25,7 +25,7 @@ set_property -name "module_name" -value "clock_counter" -objects $obj
 puts "Setup reconfigurable modules and runs"
 create_reconfig_module -name clock_counter -partition_def $obj -define_from clock_counter
 create_reconfig_module -name clock_counter_half -partition_def $obj 
-import_files -norecurse C:/Users/willi/iCloudDrive/Desktop/Berkeley/SLICE/DFX_tcl/src/clock_counter_half.v  -of_objects [get_reconfig_modules clock_counter_half]
+import_files -norecurse C:/Users/willi/iCloudDrive/Desktop/Berkeley/SLICE/DFX_tcl/src/ArtyZ7/clock_counter_half.v  -of_objects [get_reconfig_modules clock_counter_half]
 create_pr_configuration -name full -partitions [list counter:clock_counter ]
 create_pr_configuration -name half -partitions [list counter:clock_counter_half ]
 set_property PR_CONFIGURATION full [get_runs impl_1]

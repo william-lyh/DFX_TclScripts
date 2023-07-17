@@ -6,9 +6,9 @@ create_project DrivedCounter_wDFX_tclCreated /scratch/williamlyh/DrivedCounter_w
 set_property board_part xilinx.com:au250:part0:1.3 [current_project]
 
 puts "Import sourse files"
-add_files -norecurse {/home/eecs/williamlyh/Documents/DFX_TclScripts/src/top.v /home/eecs/williamlyh/Documents/DFX_TclScripts/src/driver.v /home/eecs/williamlyh/Documents/DFX_TclScripts/src/clock_counter.v }
+add_files -norecurse {/home/eecs/williamlyh/Documents/DFX_TclScripts/src/U250/top.v /home/eecs/williamlyh/Documents/DFX_TclScripts/src/U250/driver.v /home/eecs/williamlyh/Documents/DFX_TclScripts/src/U250/clock_counter.v }
 import_files -force -norecurse
-import_files -fileset constrs_1 -force -norecurse /home/eecs/williamlyh/Documents/DFX_TclScripts/src/driver.xdc
+import_files -fileset constrs_1 -force -norecurse /home/eecs/williamlyh/Documents/DFX_TclScripts/src/U250/driver.xdc
 update_compile_order -fileset sources_1
 
 puts "Enable Dynamic Function Exchange"
@@ -24,7 +24,7 @@ create_reconfig_module -name clock_counter -partition_def [get_partition_defs co
 
 puts "Setup reconfigurable modules and runs"
 create_reconfig_module -name clock_counter_half -partition_def [get_partition_defs counter ] 
-import_files -norecurse /home/eecs/williamlyh/Documents/DFX_TclScripts/src/clock_counter_half.v  -of_objects [get_reconfig_modules clock_counter_half]
+import_files -norecurse /home/eecs/williamlyh/Documents/DFX_TclScripts/src/U250/clock_counter_half.v  -of_objects [get_reconfig_modules clock_counter_half]
 create_pr_configuration -name full -partitions [list counter:clock_counter ]
 create_pr_configuration -name half -partitions [list counter:clock_counter_half ]
 set_property PR_CONFIGURATION full [get_runs impl_1]
