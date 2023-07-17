@@ -24,14 +24,12 @@ module top(
     input fpga_125mhz_clk
     );
     
-    wire rst = 1'd0;
-    reg rst_reg = 1'd0;
-    wire en = 1'd1;
-    reg en_reg = 1'd1;
+    wire rst;
+    wire en;
     wire [3:0] counter_out;
 
-    assign rst = rst_reg;
-    assign en = en_reg;
+    wire [3:0] leds;
+    wire [1:0] switches = 2'b00;
 
     driver counter_driver (
         .clk(fpga_125mhz_clk),
