@@ -28,7 +28,7 @@ import_files -norecurse /home/eecs/williamlyh/Documents/DFX_TclScripts/src/U250/
 create_pr_configuration -name full -partitions [list counter:clock_counter ]
 create_pr_configuration -name half -partitions [list counter:clock_counter_half ]
 set_property PR_CONFIGURATION full [get_runs impl_1]
-create_run child_0_impl_1 -parent_run impl_1 -flow {Vivado Implementation 2023} -pr_config half
+create_run child_0_impl_1 -parent_run impl_1 -flow {Vivado Implementation 2021} -pr_config half
 
 puts "launch synth run"
 launch_runs synth_1 -jobs 16
