@@ -21,8 +21,8 @@
 
 
 module top(
-    input sys_clk_N,
-    input sys_clk_P
+    input USER_SI570_CLOCK_P,
+    input USER_SI570_CLOCK_N
     );
     
     wire clk;
@@ -40,8 +40,8 @@ module top(
     
     IBUFDS IBUFDS_inst (
        .O(clk),   // 1-bit output: Buffer output
-       .I(sys_clk_P),   // 1-bit input: Diff_p buffer input (connect directly to top-level port)
-       .IB(sys_clk_N)  // 1-bit input: Diff_n buffer input (connect directly to top-level port)
+       .I(USER_SI570_CLOCK_P),   // 1-bit input: Diff_p buffer input (connect directly to top-level port)
+       .IB(USER_SI570_CLOCK_N)  // 1-bit input: Diff_n buffer input (connect directly to top-level port)
     );
     
     // End of IBUFDS_inst instantiation
